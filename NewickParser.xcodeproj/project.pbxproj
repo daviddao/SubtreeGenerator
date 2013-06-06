@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		63AF66EC1760C94400B92631 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 63AF66EB1760C94400B92631 /* main.c */; };
 		63AF66EE1760C94400B92631 /* NewickParser.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 63AF66ED1760C94400B92631 /* NewickParser.1 */; };
+		63AF66FB1760C9E600B92631 /* makefile in Sources */ = {isa = PBXBuildFile; fileRef = 63AF66F41760C9E600B92631 /* makefile */; };
+		63AF66FC1760C9E600B92631 /* Newickform.c in Sources */ = {isa = PBXBuildFile; fileRef = 63AF66F51760C9E600B92631 /* Newickform.c */; };
+		63AF66FE1760C9E600B92631 /* seqUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 63AF66F81760C9E600B92631 /* seqUtil.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +31,12 @@
 		63AF66E81760C94400B92631 /* NewickParser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NewickParser; sourceTree = BUILT_PRODUCTS_DIR; };
 		63AF66EB1760C94400B92631 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		63AF66ED1760C94400B92631 /* NewickParser.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = NewickParser.1; sourceTree = "<group>"; };
+		63AF66F41760C9E600B92631 /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
+		63AF66F51760C9E600B92631 /* Newickform.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Newickform.c; sourceTree = "<group>"; };
+		63AF66F61760C9E600B92631 /* Newickform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Newickform.h; sourceTree = "<group>"; };
+		63AF66F81760C9E600B92631 /* seqUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = seqUtil.c; sourceTree = "<group>"; };
+		63AF66F91760C9E600B92631 /* seqUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = seqUtil.h; sourceTree = "<group>"; };
+		63AF66FA1760C9E600B92631 /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +70,12 @@
 			isa = PBXGroup;
 			children = (
 				63AF66EB1760C94400B92631 /* main.c */,
+				63AF66F41760C9E600B92631 /* makefile */,
+				63AF66F51760C9E600B92631 /* Newickform.c */,
+				63AF66F61760C9E600B92631 /* Newickform.h */,
+				63AF66F81760C9E600B92631 /* seqUtil.c */,
+				63AF66F91760C9E600B92631 /* seqUtil.h */,
+				63AF66FA1760C9E600B92631 /* test.txt */,
 				63AF66ED1760C94400B92631 /* NewickParser.1 */,
 			);
 			path = NewickParser;
@@ -118,6 +133,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				63AF66EC1760C94400B92631 /* main.c in Sources */,
+				63AF66FB1760C9E600B92631 /* makefile in Sources */,
+				63AF66FC1760C9E600B92631 /* Newickform.c in Sources */,
+				63AF66FE1760C9E600B92631 /* seqUtil.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
