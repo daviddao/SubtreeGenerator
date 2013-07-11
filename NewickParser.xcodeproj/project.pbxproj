@@ -36,7 +36,7 @@
 		63AF66F61760C9E600B92631 /* Newickform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Newickform.h; sourceTree = "<group>"; };
 		63AF66F81760C9E600B92631 /* seqUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = seqUtil.c; sourceTree = "<group>"; };
 		63AF66F91760C9E600B92631 /* seqUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = seqUtil.h; sourceTree = "<group>"; };
-		63AF66FA1760C9E600B92631 /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
+		63AF66FA1760C9E600B92631 /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = test.txt; path = NewickParser/test.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +55,7 @@
 			children = (
 				63AF66EA1760C94400B92631 /* NewickParser */,
 				63AF66E91760C94400B92631 /* Products */,
+				63AF66FA1760C9E600B92631 /* test.txt */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,7 +76,6 @@
 				63AF66F61760C9E600B92631 /* Newickform.h */,
 				63AF66F81760C9E600B92631 /* seqUtil.c */,
 				63AF66F91760C9E600B92631 /* seqUtil.h */,
-				63AF66FA1760C9E600B92631 /* test.txt */,
 				63AF66ED1760C94400B92631 /* NewickParser.1 */,
 			);
 			path = NewickParser;

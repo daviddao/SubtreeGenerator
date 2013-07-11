@@ -105,5 +105,5 @@ int main(int argc, char *argv[])
 
 	// End memory management procedure and free all allocated space
 	seqFreeAll();
-}
+    }
 

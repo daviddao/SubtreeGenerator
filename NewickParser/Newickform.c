@@ -219,19 +219,19 @@ void printTree(newick_node *root)
 		}
 		if (root->taxon != NULL)
 		{
-			printf(")%s:%0.6f", root->taxon, root->dist);
+			printf(")%s:%0.5f", root->taxon, root->dist);
 		}
 		else
 		{
-			printf("):%0.6f", root->dist);
+			printf("):%0.5f", root->dist);
 		}
 	}
 }
 
 
-
-newick_child* leafs_get_leaf(sAllLeafs* all_leafs, int index) {
-	newick_child* result = NULL;
+/* return leafs for given index */
+newick_node* leafs_get_leaf(sAllLeafs* all_leafs, int index) {
+	newick_node* result = NULL;
 
 	if (all_leafs != NULL && index < all_leafs->size) {
 		result = all_leafs->paChildren[index];
@@ -241,7 +241,7 @@ newick_child* leafs_get_leaf(sAllLeafs* all_leafs, int index) {
 }
 
 /* Add a leaf to a given sAllLeafs* pointer */
-bool leafs_add_leaf(sAllLeafs* all_leafs, newick_child* c) {
+bool leafs_add_leaf(sAllLeafs* all_leafs, newick_node* c) {
 	bool result = false;
 
 	/* Check that leaf structure is not null */
@@ -266,36 +266,40 @@ void leafs_free(sAllLeafs* all_leafs) {
 sAllLeafs* leafs_alloc(int leaf_count) {
 	/* Example of allocation */
 	sAllLeafs* all_leafs = (sAllLeafs*)malloc(sizeof(sAllLeafs));
-	all_leafs->paChildren = (newick_child**)malloc(leaf_count * sizeof(newick_child*));
+	all_leafs->paChildren = (newick_node**)malloc(leaf_count * sizeof(newick_node*));
 	all_leafs->curIndex = 0;
 	all_leafs->size = leaf_count;
 
 	return all_leafs;
 }
 
+void generateStringFromArray(sAllLeafs* arr, int i) {
+    printf("%s:%0.5f", leafs_get_leaf(arr, i)->taxon, leafs_get_leaf(arr, i)->dist);
+}
 
-
-
+/* Store all Taxa in an array called all_leafs -- TESTFUNCTION()*/
 void storeTaxa(newick_node *root){
-int TaxaNumber = 0;
-newick_child* child;
-child = (newick_child*)seqMalloc(sizeof(newick_child));
-countTaxaNumber(root, &TaxaNumber);
-int i = 0;
-while(i <= TaxaNumber) {
-	child->next = (newick_child*)seqMalloc(sizeof(newick_child));
-	child = child->next;
-	i++;
-}
-traverseStructure(root, &child); 
+    int TaxaNumber = 0;
+    countTaxaNumber(root, &TaxaNumber);
+    sAllLeafs* all_leafs = leafs_alloc(TaxaNumber);
+    traverseStructure(root, &all_leafs);
 
-printf("hey\n");
-while(child != NULL) {
-	printf("%s ", child->node->taxon);
-	child = child->next;
-	}
+    printf("Subtrees: \n");
+    //int i = 0;
+    //leafs_get_leaf(all_leafs, 2)->taxon = "human";
+    randomize(all_leafs, TaxaNumber);
+    //while (i < TaxaNumber) {
+        
+        //generateStringFromArray(all_leafs, i);
+         //i++;
+    //}
+    parens(all_leafs, all_leafs->size / 4);
+    //printf("Size: %d \n", all_leafs->size);
+    
+    
 }
 
+/* Count Taxa Number */
 void countTaxaNumber(newick_node *root, int* i) {
 	if(root->childNum != 0) {
 		newick_child *child;
@@ -312,15 +316,27 @@ void countTaxaNumber(newick_node *root, int* i) {
 		}
 	} else {
 	(*i) = (*i) + 1;
-	//printf("%i", (*i));
-	//printf("%s \n", root->taxon);
 	}
 
 }
 
 
+
+void generate_randomTree(int leafs) {
+    newick_node *root;
+	newick_child *child;
+    
+    root = (newick_node*)seqMalloc(sizeof(newick_node));
+    child = (newick_child*)seqMalloc(sizeof(newick_child));
+    
+    
+    for (int i = 0; i < leafs; i++) {
+        
+    }
+}
+
 /*returns all taxa */
-void traverseStructure(newick_node *root, newick_child** newick) 
+void traverseStructure(newick_node *root, sAllLeafs** newick)
 {	
 	if(root->childNum != 0) {
 		newick_child *child;
@@ -335,13 +351,108 @@ void traverseStructure(newick_node *root, newick_child** newick)
 			}	
 		}
 	} else {
-	printf("%s \n", root->taxon);
-
-	(*newick)->node = root; //NOT WORKING RIGHT NOW 
-	newick = &((*newick)->next);
+        //printf("%s, %f \n", root->taxon, root->dist);
+        leafs_add_leaf(*newick, root);
 	}
 
 }
+//Swap nodes in position a and b (beginning with 0)
+void leafs_swap_nodes(int a, int b, sAllLeafs* i)
+{
+    newick_node* tmp = leafs_get_leaf(i, a);
+    i->paChildren[a] = leafs_get_leaf(i, b);
+    i->paChildren[b] = tmp;
+}
+
+//Randomizes array
+void randomize(sAllLeafs* arr, int n )
+{
+// Use a different seed value so that we don't get same
+// result each time we run this program
+srand ( time(NULL) );
+    
+// Start from the last element and swap one by one. We don't
+// need to run for the first element that's why i > 0
+    for (int i = n-1; i > 0; i--)
+        {  
+            // Pick a random index from 0 to i
+            int j = rand() % (i+1);
+            
+            // Swap arr[i] with the element at random index
+            leafs_swap_nodes(i, j, arr);
+        }
+}
+
+
+void parens_foo(char output[], int index, int open, int close, int pairs, sAllLeafs* arr)
+{
+    int i;
+    int k = 0;
+    
+    if (index == 2*pairs) {
+        printf("(");
+        for (i = 0; i < 2*pairs; i++) {
+            putchar(output[i]);
+            if (output[i] == '(') {
+                generateStringFromArray(arr, k);
+                k++;
+                if(output[i+1] == ')') {
+                    printf(",");
+                    generateStringFromArray(arr, k);
+                    k++;
+                }
+                if(output[i+1] == '(') {
+                    printf(",");
+                }
+            }
+            if (output[i] == ')') {
+                printf(":10.00000");
+                if (output[i+1] == '(') {
+                    printf(",");
+                }
+            }
+            
+        }
+        printf(",");
+        generateStringFromArray(arr, k);
+        printf(",");
+        k++;
+        generateStringFromArray(arr, k);
+        printf(");");
+        putchar('\n');
+        
+        return;
+    }
+    
+    if (open) {
+        output[index] = '(';
+        parens_foo(output, index + 1, open - 1, close, pairs, arr);
+    }
+    
+    if (close && (pairs - close + 1 <= pairs - open)
+        ) {
+        output[index] = ')';
+        parens_foo(output, index + 1, open, close - 1, pairs, arr);
+    }
+    
+    return;
+}
+
+//Generate Parenthesis
+void parens(sAllLeafs* arr, int pairs)
+{
+    char output[2*pairs];
+    
+    output[0] = '(';
+     output[2*pairs - 1] = ')';
+    
+    parens_foo(output, 1, pairs - 1, pairs, pairs, arr);
+}
+
+
+
+
+
 
 
 
